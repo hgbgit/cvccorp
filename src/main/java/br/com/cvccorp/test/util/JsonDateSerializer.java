@@ -9,8 +9,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.springframework.stereotype.Component;
+
 /**
- * Usado para serializar java.util.Date, que não é um
+ * Usado para Derializar java.util.Date, que não é um
  * tipo comun no JSON;
  *
  * @author Hugo Barros

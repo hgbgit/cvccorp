@@ -33,7 +33,7 @@ public class ConsultaViagemCalculoTotalServiceTest {
     }
 
     /**
-     * Checkin dia: 20/05/2017, Checkout dia: 25/05/2017, Total de Adultos: 2 com 1 Criança
+     * Checkin dia: 20/05/2017, Checkout dia: 25/05/2017, Total de Adultos: 2 com 2 Criança
      *
      * Com Broker com R$ 100,00 para adulto e R$ 50,00 para criança:
      */
@@ -48,7 +48,7 @@ public class ConsultaViagemCalculoTotalServiceTest {
                 setCheckin("20/05/2017");
                 setCheckout("25/05/2017");
                 setQuantidadeDeAdulto(2);
-                setQuantidadeDeCrianca(1);
+                setQuantidadeDeCrianca(2);
         }};
 
         // Expected Result
@@ -74,11 +74,11 @@ public class ConsultaViagemCalculoTotalServiceTest {
 
         // then
         Assert.assertEquals(1, response.size());
-       // Assert.assertEquals(BigDecimal.valueOf(1550.0), response.get(0).getRooms().get(0).getTotalPrice());
+        Assert.assertEquals(BigDecimal.valueOf(1800.0), response.get(0).getRooms().get(0).getTotalPrice());
     }
 
     /**
-     * Checkin dia: 20/05/2017, Checkout dia: 25/05/2017, Total de Adultos: 2 com 1 Criança
+     * Checkin dia: 20/05/2017, Checkout dia: 25/05/2017, Total de Adultos: 2 com 2 Criança
      *
      * Com Broker com R$ 100,00 para adulto e R$ 50,00 para criança:
      */
@@ -93,7 +93,7 @@ public class ConsultaViagemCalculoTotalServiceTest {
             setCheckin("20/05/2017");
             setCheckout("25/05/2017");
             setQuantidadeDeAdulto(2);
-            setQuantidadeDeCrianca(1);
+            setQuantidadeDeCrianca(2);
         }};
 
         // Expected Result
@@ -119,6 +119,6 @@ public class ConsultaViagemCalculoTotalServiceTest {
 
         // then
         Assert.assertEquals(1, response.size());
-       // Assert.assertEquals(BigDecimal.valueOf(1550.0), response.get(0).getRooms().get(0).getTotalPrice());
+        Assert.assertEquals(BigDecimal.valueOf(1800.0), response.get(0).getRooms().get(0).getTotalPrice());
     }
 }

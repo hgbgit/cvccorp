@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Usado para serializar java.util.Date, que não é um
+ * Usado para deserializar java.util.Date, que não é um
  * tipo comun no JSON;
  *
  * @author Hugo Barros

@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-
+/**
+ * Interface cliente do Feing, realiza a consulta do links passados
+ * pelo broker.
+ *
+ * @author Hugo Barros Camboim
+ */
 @FeignClient(name="CvcBackendHotelClient", url = "${cvccorp.url}")
 public interface CvcBackendHotelClient {
 

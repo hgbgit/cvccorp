@@ -8,6 +8,10 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/** Classe Mapper que faz o mapeamento de uma response da aplicação externa para a aplicação local.
+ *
+ * @author Hugo Barros Camboim
+ */
 @Mapper
 public interface ConsultaValorResponseMapper {
 

@@ -14,12 +14,23 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Implementa os Endpoints da aplicação local.
+ * Traz os métodos da consulta por cidade e por hotel.
+ *
+ * @author Hugo Barros Camboim
+ */
 @RestController
 @AllArgsConstructor
 public class CheckinController {
 
+    /** Service para o calculo de todos os brokers */
     private ConsultaViagemCalculoTotalService consultaViagemCalculoTotalService;
 
+    /**
+     * Faz a consulta por cidade e devolve a response no formato JSON. Realiza também
+     * a validação dos dados passados como parâmetros na requisição.
+     */
     @GetMapping("/consultar/cidade")
     public ResponseEntity<List<ConsultaValorResponse>> consultaValorCidade(
             @ModelAttribute @Valid ConsultaValorCidadeRequest consultaValorCidadeRequest){
@@ -29,6 +40,10 @@ public class CheckinController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Faz a consulta por hotel e devolve a response no formato JSON. Realiza também
+     * a validação dos dados passados como parâmetros na requisição.
+     */
     @GetMapping("/consultar/hotel")
     public ResponseEntity<List<ConsultaValorResponse>> consultaValorHotel(
             @ModelAttribute @Valid ConsultaValorHotelRequest consultaValorHotelRequest){
