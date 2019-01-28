@@ -14,12 +14,12 @@ Caminho do arquivo: cvc_corp_test/src/main/resources/application.properties
 Para implementação do cache foi utilizado o Caffeine(http://www.javadoc.io/doc/com.github.ben-manes.caffeine/caffeine/2.6.2). O qual possui várias propriedades configuráveis, das quais foram utilizadas:  
 		- size-based eviction (Expira o cache com base no tamanho acumulado)
  		- time-based expiration (Expira o cache com base no tempo)
-###1.Implementação do Client com Feign Clients:  
+### 1.Implementação do Client com Feign Clients:  
 Para consumir a API fornecida pelo broker foi utilizado o FeingClient, não apenas pela facilidade que o mesmo fornece para implementação, mas também pelo fato de ser completo, possibilitando inclusive a criação de Fallbacks nas chamadas ao serviços, no qual poderiamos avisar aos brokers por exemplo, quando um serviço de broker estivesse indiponível.  
 A solução foi criada de forma que, em havendo vário brokers poderiamos adicionar implementações de clientes sem a necessidade alteração em várias partes do código.
-###1.Validação dos Beans:  
+### 1.Validação dos Beans:  
 Foi também utilizado o  JSR 3, nas classes de request, que representam uma requisição à solução proposta, de forma que a validação é feita de forma implícita através das "annotations", onde em havendo algum valor nulo ou inválido, a requisição para e devolve o status de "Bad Request"
-###1.Uso do Lombok(https://projectlombok.org/)  
+### 1.Uso do Lombok(https://projectlombok.org/)  
 O Lombok, facilita a criação de classes de Objeto reescrevendo código, sem a necessidade de criar getters ou setter e até mesmo construtores. No caso da solução apresentada foi utilizado em várias classes a anotação: "AllagrsContructor", que basicamente recria a classe com um construtor usando todos os campos da mesma. então caso precise adicionar algum campo em alguma classe, não é necessário refatorar o seu construtor 
 
 ## Quais ferramentas foram usadas
