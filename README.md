@@ -1,10 +1,41 @@
 # CVCCorpTest
 
+* [Aspectos de Implementação](#aspectos-de-implementacao)
 * [Como usar](#como-usar)
 * [Quais ferramentas foram usadas](#quais-ferramentas-foram-usadas)
 * [Infraestrutura adicional](#infraestrutura-adicional)
 * [Como executar, testar, empacotar e entregar o projeto](#como-executar-testar-empacotar-e-entregar-o-projeto)
 * [Instruções para ambiente de produção](#instruções-para-ambiente-de-produção)
+
+## Aspectos de Implementação
+
+1 - Sobre o cache: 
+	
+	A príncipio não usaria o cache, pelo motivo de existir a possibilidade de os valores mudarem, com isso o serviço iria retornar valores desatualizados de proposta de hospedagem. Mas, em se tratando de 1 minuto apenas, não atrapalharia a aplicação, assumindo que o broker não mude o valor da diária de um hotel com tanta frequência.
+	
+	Caso o serviço proposto no teste seja apenas uma tela de busca, poderíamos aumentar o valor do tempo de cache, porém para uma tela de pagamento final usaria um cache menor.
+
+	A configuração do cache se encontra no arquivo de configurações da aplicação, no qual os valores podem ser alterados. 
+	Caminho do arquivo: cvc_corp_test/src/main/resources/application.properties
+
+	Para implementação do cache foi utilizado o Caffeine(http://www.javadoc.io/doc/com.github.ben-manes.caffeine/caffeine/2.6.2). O qual possui várias propriedades configuráveis, das quais foram utilizadas:  
+		- size-based eviction (Expira o cache com base no tamanho acumulado)
+ 		- time-based expiration (Expira o cache com base no tempo)
+
+
+2 - Implementação do Client com Feign Clients: 
+
+	Para consumir a API fornecida pelo broker foi utilizado o FeingClient, não apenas pela facilidade que o mesmo fornece para implementação, mas também pelo fato de ser completo, possibilitando inclusive a criação de Fallbacks nas chamadas ao serviços, no qual poderiamos avisar aos brokers por exemplo, quando um serviço de broker estivesse indiponível.
+
+	A solução foi criada de forma que, em havendo vário brokers poderiamos adicionar implementações de clientes sem a necessidade alteração em várias partes do código.
+
+
+ 6 - Validação dos Beans:
+ 	Foi também utilizado o  JSR 3, nas classes de request, que representam uma requisição à solução proposta, de forma que a validação é feita de forma implícita através das "annotations", onde em havendo algum valor nulo ou inválido, a requisição para e devolve o status de "Bad Request"
+
+ 7 - Uso do Lombok(https://projectlombok.org/)
+
+ 	O Lombok, facilita a criação de classes de Objeto reescrevendo código, sem a necessidade de criar getters ou setter e até mesmo construtores. No caso da solução apresentada foi utilizado em várias classes a anotação: "AllagrsContructor", que basicamente recria a classe com um construtor usando todos os campos da mesma. então caso precise adicionar algum campo em alguma classe, não é necessário refatorar o seu construtor 
 
 ## Quais ferramentas foram usadas
 
@@ -53,13 +84,13 @@ cd cvccorp
 ```
 mvn clean install
 ```
-	> Dentro da pasta target, verificar a existência do arquivo com nome: platcorp-0.0.1.jar
+	> Dentro da pasta target, verificar a existência do arquivo com nome: CvcCorpTestApplication-0.0.1-SNAPSHOT.jar
 
 8. Para executar
 
 	> Entrar na pasta target criada no passo anterior e executar o comando abaixo
 ``` 
-	java -jar platcorp-0.0.1.jar
+	java -jar CvcCorpTestApplication-0.0.1-SNAPSHOT.jar
 ``` 
 	
 
@@ -67,9 +98,9 @@ mvn clean install
 
 - [ ]  JDK 8 ou superior deve estar instalado na máquina que a aplicacao platcorp irá rodar
 - [ ]  Liberar portas no firewall, conforme [Infraestrutura adicional](#infraestrutura-adicional)
-- [ ]  Criar uma pasta com nome "**platcorp**" 
+- [ ]  Criar uma pasta com nome "**cvccorp**" 
 - [ ]  Copiar o arquivo gerado na seção [Como executar, testar, empacotar e entregar o projeto](#como-executar-testar-empacotar-e-entregar-o-projeto)
 - [ ]  Executar o comando: 
 ```
-java -jar platcorp-0.0.1.jar
+java -jar CvcCorpTestApplication-0.0.1-SNAPSHOT.jar
 ```
