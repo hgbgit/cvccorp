@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
+@RequestMapping("/consultar")
 public class CheckinController {
 
     /** Service para o calculo de todos os brokers */
@@ -31,7 +33,7 @@ public class CheckinController {
      * Faz a consulta por cidade e devolve a response no formato JSON. Realiza também
      * a validação dos dados passados como parâmetros na requisição.
      */
-    @GetMapping("/consultar/cidade")
+    @GetMapping("/cidade")
     public ResponseEntity<List<ConsultaValorResponse>> consultaValorCidade(
             @ModelAttribute @Valid ConsultaValorCidadeRequest consultaValorCidadeRequest){
 
@@ -44,7 +46,7 @@ public class CheckinController {
      * Faz a consulta por hotel e devolve a response no formato JSON. Realiza também
      * a validação dos dados passados como parâmetros na requisição.
      */
-    @GetMapping("/consultar/hotel")
+    @GetMapping("/hotel")
     public ResponseEntity<List<ConsultaValorResponse>> consultaValorHotel(
             @ModelAttribute @Valid ConsultaValorHotelRequest consultaValorHotelRequest){
 
