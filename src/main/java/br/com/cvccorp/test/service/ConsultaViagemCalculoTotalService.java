@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -38,15 +39,10 @@ public class ConsultaViagemCalculoTotalService {
      * consultada nas datas informadas no request.
      */
     public List<ConsultaValorResponse> consultarCidade(ConsultaValorCidadeRequest consultaValorCidadeRequest){
-        return consultadoresBroker
-                .parallelStream()
-                .map( broker -> broker.consultarCidade(consultaValorCidadeRequest))
-                .flatMap(Collection::stream)
-                .peek( proposta -> this.calcularPrecoDaProposta( proposta,
-                        consultaValorCidadeRequest.getQuantidadeDias(),
-                        consultaValorCidadeRequest.getQuantidadeDeAdulto(),
-                        consultaValorCidadeRequest.getQuantidadeDeCrianca()))
-                .collect(Collectors.toList());
+        return consultaBase(consultaValorCidadeRequest.getQuantidadeDias(),
+                consultaValorCidadeRequest.getQuantidadeDeAdulto(),
+                consultaValorCidadeRequest.getQuantidadeDeCrianca(),
+                broker -> broker.consultarCidade(consultaValorCidadeRequest));
     }
 
     /**
@@ -59,14 +55,30 @@ public class ConsultaViagemCalculoTotalService {
      * consultada nas datas informadas no request.
      */
     public List<ConsultaValorResponse> consultarHotel(ConsultaValorHotelRequest consultaValorHotelRequest){
+        return consultaBase(consultaValorHotelRequest.getQuantidadeDias(),
+                consultaValorHotelRequest.getQuantidadeDeAdulto(),
+                consultaValorHotelRequest.getQuantidadeDeCrianca(),
+                broker -> broker.consultarHotel(consultaValorHotelRequest));
+    }
+
+    /** Implementa a consulta base dos 2 casos de uso uma vez que entre os dois casos muda apenas o "hotelID".
+     * Evita duplicação de código.
+     *
+     * @param qntDias quantidade de dias da proposta de hospedagem
+     * @param qntAdulto quantidade de adultos da proposta
+     * @param qntCrianca quantidade de crianças da hospedagem
+     * @param consultaTransformada consulta abstrata para mapeamento
+     */
+    private List<ConsultaValorResponse> consultaBase(long qntDias, int qntAdulto, int qntCrianca,
+                                                     Function<ConsultadorBroker,List<ConsultaValorResponse>> consultaTransformada){
         return consultadoresBroker
                 .parallelStream()
-                .map( broker -> broker.consultarHotel(consultaValorHotelRequest))
+                .map(consultaTransformada)
                 .flatMap(Collection::stream)
                 .peek( proposta -> this.calcularPrecoDaProposta( proposta,
-                        consultaValorHotelRequest.getQuantidadeDias(),
-                        consultaValorHotelRequest.getQuantidadeDeAdulto(),
-                        consultaValorHotelRequest.getQuantidadeDeCrianca()))
+                        qntDias,
+                        qntAdulto,
+                        qntCrianca))
                 .collect(Collectors.toList());
     }
 
@@ -85,5 +97,6 @@ public class ConsultaViagemCalculoTotalService {
             room.setTotalPrice(valorTotalDoQuarto);
         });
     }
+
 
 }
