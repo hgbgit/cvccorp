@@ -67,4 +67,6 @@ Foi também utilizado o  JSR 3, nas classes de request, que representam uma requ
 ### 4.Uso do Lombok(https://projectlombok.org/)  
 O Lombok, facilita a criação de classes de Objeto reescrevendo código, sem a necessidade de criar getters ou setter e até mesmo construtores. No caso da solução apresentada foi utilizado em várias classes a anotação: "AllagrsContructor", que basicamente recria a classe com um construtor usando todos os campos da mesma. então caso precise adicionar algum campo em alguma classe, não é necessário refatorar o seu construtor 
   
-
+## Agradecimentos
+*Grato em poder participar dessa seleção. De qualquer forma já foi de bastante apredizado pra, visto que basicamente todas as tecnologias são novas em termos de mercado para mim. Com isso, tentei buscar,estudar e analisar formas mais recentes de como implementar a solução mencionada na proposta.
+*Grato ao Rodrigo Rahman, pela disponibilidade para entrevista.
