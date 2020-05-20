@@ -66,7 +66,4 @@ A solução foi criada de forma que, em havendo vário brokers poderiamos adicio
 Foi também utilizado o  JSR 3, nas classes de request, que representam uma requisição à solução proposta, de forma que a validação é feita de forma implícita através das "annotations", onde em havendo algum valor nulo ou inválido, a requisição para e devolve o status de "Bad Request"
 ### 4.Uso do Lombok(https://projectlombok.org/)  
 O Lombok, facilita a criação de classes de Objeto reescrevendo código, sem a necessidade de criar getters ou setter e até mesmo construtores. No caso da solução apresentada foi utilizado em várias classes a anotação: "AllagrsContructor", que basicamente recria a classe com um construtor usando todos os campos da mesma. então caso precise adicionar algum campo em alguma classe, não é necessário refatorar o seu construtor 
-  
-## Agradecimentos
-* Grato em poder participar dessa seleção. Independete do resultado final já foi um grande aprendizado, visto que basicamente todas as tecnologias são novas em termos de mercado para mim. Com isso, tentei buscar,estudar e analisar formas mais recentes de como implementar a solução mencionada na proposta.  
-* Grato ao Rodrigo Rahman, pela disponibilidade para entrevista.
+
